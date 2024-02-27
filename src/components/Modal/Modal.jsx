@@ -9,6 +9,12 @@ class Modal extends Component {
     }
   };
 
+  handleOverlay = e => {
+    if (e.target === e.currentTarget) {
+      this.props.toggleModal();
+    }
+  };
+
   componentDidMount() {
     document.addEventListener('keydown', this.handleClickEsc);
   }
@@ -19,7 +25,7 @@ class Modal extends Component {
 
   render() {
     return (
-      <div className={css.overlay}>
+      <div className={css.overlay} onClick={this.handleOverlay}>
         <div className={css.modal}>
           <img src={this.props.imgURL} alt="" />
         </div>

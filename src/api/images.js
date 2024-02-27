@@ -12,8 +12,7 @@ export const getImagesApi = async (q, page) => {
       page,
     },
   };
-  const {
-    data: { hits },
-  } = await axios.get('https://pixabay.com/api/', options);
-  return hits;
+  const { data } = await axios.get('https://pixabay.com/api/', options);
+  console.log(data);
+  return data;
 };

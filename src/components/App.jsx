@@ -30,11 +30,14 @@ class App extends Component {
   getImages = async () => {
     try {
       this.setState({ isLoading: true, isLoadMore: false });
-      const data = await getImagesApi(this.state.search, this.state.page);
-      if (data.length === 12) {
-        this.setState({ isLoadMore: true });
-      }
-      this.setState(prev => ({ images: [...prev.images, ...data] }));
+      const { hits, totalHits } = await getImagesApi(
+        this.state.search,
+        this.state.page
+      );
+      this.setState(prev => ({
+        images: [...prev.images, ...hits],
+        isLoadMore: this.state.page < Math.ceil(totalHits / 12),
+      }));
     } catch (error) {
     } finally {
       this.setState({ isLoading: false });
